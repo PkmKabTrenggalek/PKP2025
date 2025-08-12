@@ -1,241 +1,247 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PKP 2025 Puskesmas Pule</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <style>
-      html,
-      body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PKP 2025 Puskesmas Pule</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"/>
+  <style>
+    html {
+      height: 100%;
+      background: linear-gradient(135deg, #e9f7ff, #b3d9f5);
+      background-attachment: fixed;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      padding-top: 80px;
+      font-family: "Segoe UI", sans-serif;
+      position: relative;
+      z-index: 1;
+    }
+    /* ANIMASI BUBBLE */
+    .bubbles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .bubble {
+      position: absolute;
+      bottom: -100px;
+      background: rgba(0, 183, 255, 0.25);
+      border-radius: 50%;
+      filter: blur(2px);
+      animation: rise 8s infinite ease-in;
+    }
+    @keyframes rise {
+      0% { transform: translateY(0) scale(1); opacity: 0.7; }
+      50% { opacity: 0.4; }
+      100% { transform: translateY(-110vh) scale(1.2); opacity: 0; }
+    }
 
-      body {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        background: transparent; /* biar ambil gradasi dari html */
-        font-family: "Segoe UI", sans-serif;
-        padding-top: 80px;
-      }
+    .navbar {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid #dee2e6;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      z-index: 2;
+    }
+    .navbar-brand {
+      color: #0077b6 !important;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .section-title {
+      color: #0077b6;
+      font-weight: 700;
+      margin-bottom: 30px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+    }
+    .custom-card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      text-align: center;
+      transition: all 0.3s ease-in-out;
+      position: relative;
+      overflow: hidden;
+      z-index: 2;
+    }
+    .custom-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+    }
+    .custom-card::after {
+      content: "";
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      background: rgba(0, 183, 255, 0.1);
+      top: -20px;
+      right: -20px;
+      border-radius: 50%;
+      transition: 0.4s;
+    }
+    .custom-card:hover::after {
+      transform: scale(1.4);
+      background: rgba(0, 183, 255, 0.15);
+    }
+    .custom-card .card-number {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: #0077b6;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    }
+    .custom-card h5 {
+      margin-top: 3rem;
+      font-weight: 600;
+      color: #0077b6;
+    }
+    .custom-card i {
+      font-size: 2.8rem;
+      color: #0096c7;
+      margin-bottom: 1rem;
+      transition: transform 0.3s ease-in-out;
+    }
+    .custom-card:hover i {
+      transform: rotate(8deg) scale(1.1);
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.85rem;
+      color: #555;
+      z-index: 2;
+    }
+    footer a {
+      text-decoration: none;
+      color: #0077b6;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+    .table thead th {
+      background-color: #0077b6;
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+    .table tbody tr:nth-child(even) {
+      background-color: #f9fcff;
+    }
+    .badge {
+      font-size: 0.8rem;
+    }
 
-      .main-content {
-        flex: 1;
-      }
+    .modal-content {
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+      animation: fadeInScale 0.3s ease;
+    }
+    .modal-header {
+      border-top-left-radius: 18px;
+      border-top-right-radius: 18px;
+    }
+    .modal-footer {
+      border-bottom-left-radius: 18px;
+      border-bottom-right-radius: 18px;
+    }
+    @keyframes fadeInScale {
+      0% { opacity: 0; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <!-- BUBBLE ANIMASI -->
+  <div class="bubbles">
+    <div class="bubble" style="left: 5%; width: 20px; height: 20px; animation-delay: 0s;"></div>
+    <div class="bubble" style="left: 15%; width: 35px; height: 35px; animation-delay: 1s;"></div>
+    <div class="bubble" style="left: 25%; width: 25px; height: 25px; animation-delay: 2s;"></div>
+    <div class="bubble" style="left: 35%; width: 40px; height: 40px; animation-delay: 0.5s;"></div>
+    <div class="bubble" style="left: 45%; width: 15px; height: 15px; animation-delay: 1.5s;"></div>
+    <div class="bubble" style="left: 55%; width: 30px; height: 30px; animation-delay: 2.5s;"></div>
+    <div class="bubble" style="left: 65%; width: 25px; height: 25px; animation-delay: 0.8s;"></div>
+    <div class="bubble" style="left: 75%; width: 20px; height: 20px; animation-delay: 1.8s;"></div>
+    <div class="bubble" style="left: 85%; width: 45px; height: 45px; animation-delay: 0.3s;"></div>
+    <div class="bubble" style="left: 95%; width: 25px; height: 25px; animation-delay: 2.2s;"></div>
+  </div>
 
-      .navbar {
-        box-shadow: none;
-        background-color: #ffffff;
-        border-bottom: 1px solid #e0e0e0;
-      }
+  <nav class="navbar fixed-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand" href="#"><i class="fa-solid fa-hospital-user me-2"></i>PKP 2025 Puskesmas Pule</a>
+    </div>
+  </nav>
 
-      .navbar-brand {
-        font-weight: 600;
-        color: #7980d8 !important;
-      }
+  <main class="main-content container">
+    <div class="text-center" data-aos="fade-down">
+      <img src="pkm.png" alt="Logo" style="width: 140px" class="mb-3"/>
+    </div>
+    <h2 class="section-title text-center" data-aos="fade-up">INDIKATOR PENLAIAN KINERJA PUSKESMAS PULE 2025</h2>
 
-      .section-title {
-        text-align: center;
-        margin-bottom: 40px;
-        color: #7980d8 ;
-        font-weight: 700;
-        font-size: 1.8rem;
-      }
-
-      .custom-card {
-        background: #ffffff;
-        border-radius: 20px;
-        padding: 1.5rem;
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
-        transition: all 0.3s ease-in-out;
-        position: relative;
-        border: none;
-      }
-
-      .custom-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
-      }
-
-      .custom-card .card-number {
-        position: absolute;
-        top: 16px;
-        left: 16px;
-        background-color: #7980d8 ;
-        color: #fff;
-        font-weight: 600;
-        padding: 6px 12px;
-        border-radius: 8px;
-        font-size: 0.9rem;
-      }
-
-      .custom-card h5 {
-        margin-top: 3rem;
-        font-weight: 600;
-        color: #7980d8 ;
-        font-size: 1.1rem;
-      }
-
-      .btn-outline-success {
-        border-radius: 8px;
-        font-size: 0.9rem;
-        padding: 6px 14px;
-      }
-
-      footer {
-        background-color: transparent; /* biar nyatu dengan gradasi body */
-        padding: 1.2rem 0;
-        text-align: center;
-        font-size: 0.9rem;
-        color: #555;
-        margin-top: auto;
-      }
-      html {
-        height: 100%;
-        background: linear-gradient(to bottom, #ffffff, #84b6d3);
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-      }
-
-      @media (max-width: 768px) {
-        .custom-card {
-          margin-bottom: 1.5rem;
-        }
-
-        .section-title {
-          font-size: 1.5rem;
-        }
-      }
-
-      .custom-card {
-        padding: 1rem; /* dari 1.5rem jadi 1rem */
-      }
-
-      .custom-card h5 {
-        font-size: 1rem; /* dari 1.1rem */
-        margin-top: 2rem; /* dari 3rem */
-      }
-    </style>
-  </head>
-  <body>
-    <nav class="navbar navbar-light fixed-top">
-      <div class="container">
-        <a class="navbar-brand fw-bold text-success" href="#"
-          >PKP 2025 Puskesmas Pule</a
-        >
-      </div>
-    </nav>
-    <div class="main-content">
-      <div class="container">
-        <div class="text-center">
-          <img
-            src="pkm.png"
-            alt="Logo"
-            style="width: 140px"
-            class="mb-2"
-          />
+    <div class="row justify-content-center g-4">
+      <div class="col-md-4" data-aos="zoom-in">
+        <div class="custom-card shadow">
+          <div class="card-number">01</div>
+          <i class="fa-solid fa-venus-mars"></i>
+          <h5>Klaster 2 : Ibu Anak</h5>
+          <button class="btn btn-outline-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#programKlaster2">
+             Lihat Tabel Program
+          </button>
         </div>
-        <h2 class="section-title">
-          INDIKATOR PENILAIAN KINERJA PUSKESMAS PULE 2025
-        </h2>
-        <div class="row justify-content-center">
-            <div class="col-md-4 text-center">
-              <div class="custom-card shadow" style="border-color: #556bb1">
-                <div class="card-number">01</div>
-                <h5 class="text-center">Klaster 2 : Ibu Anak</h5>
-                <div class="text-center">
-                  <button
-                    type="button"
-                    class="btn btn-outline-primary btn-sm"
-                    data-bs-toggle="modal"
-                    data-bs-target="#programKlaster2"
-                  >
-                    Lihat Tabel Program
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          
       </div>
     </div>
-    <footer>
-        &copy; 2025 Triple-xxx. All rights reserved.
-        <a href="analisa.html">Rekap</a>
-      </footer>
-  
-      <!-- Bootstrap JS -->
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    </body>
-  </html>
-  </body>
-</html>
-<div
-  class="modal fade"
-  id="programKlaster2"
-  tabindex="-1"
-  aria-labelledby="programKlaster2ModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-xl modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header bg-primary text-white">
-        <h5 class="modal-title" id="programKlaster2Label">
-          Tabel Program / Kegiatan
-        </h5>
-        <button
-          type="button"
-          class="btn-close btn-close-white"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <div class="table-responsive">
-          <!-- Tabel isi dari langkah sebelumnya -->
-          <table
-            class="table table-bordered table-sm align-middle small text-center"
-          >
-            <thead class="table-light">
-              <tr>
-                <th class="text-start" width="500px">
-                  Program/Kegiatan Klaster 2
-                </th>
-                <th class="text-center text-warp" width="80px">
-                  Jumlah Indikator
-                </th>
-                <th>Link</th>
-              </tr>
-            </thead>
-            <tbody>
+  </main>
+
+  <!-- <footer>
+    &copy; 2025 Triple-xxx. All rights reserved. | <a href="analisa.html">Rekap</a>
+  </footer> -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="programKlaster2" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #0077b6; color: white;">
+          <h5 class="modal-title">Tabel Program / Kegiatan</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="table-responsive">
+            <table class="table table-bordered table-sm align-middle small text-center">
+              <thead>
                 <tr>
-                    <td class="text-start">Kesehatan Ibu dan Anak</td>
-                    <td style="background: #2196f3; color: white">13</td>
-                    <td>
-                    <a
-                        href="klasterlain.html?kategori=Kes.Ibu"
-                        class="badge bg-primary decoration-none ms-2"
-                        >Lihat Data</a
-                    >
-                    </td>
+                  <th class="text-start" width="500px">Program/Kegiatan Klaster 2</th>
+                  <th width="80px">Jumlah Indikator</th>
+                  <th>Link</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="text-start">Kesehatan Ibu dan Anak</td>
+                  <td style="background: #00b4d8; color: white">13</td>
+                  <td><a href="klaster2.html?kategori=Kes.Ibu" class="badge bg-primary">Lihat Data</a></td>
                 </tr>
                 <tr>
-                    <td class="text-start">Kesehatan Apras - AUS</td>
-                    <td style="background: #2196f3; color: white">6</td>
-                    
-                    <td>
-                    <a
-                        href="klasterlain.html?kategori=Kes. Apras_AUS"
-                        class="badge bg-primary decoration-none ms-2"
-                        >Lihat Data</a
-                    >
-                    </td>
+                  <td class="text-start">Kesehatan Apras - AUS</td>
+                  <td style="background: #00b4d8; color: white">6</td>
+                  <td><a href="klaster2.html?kategori=Kes. Apras_AUS" class="badge bg-primary">Lihat Data</a></td>
                 </tr>
                 <tr>
                     <td class="text-start">Gizi</td>
@@ -243,7 +249,7 @@
                    
                     <td>
                     <a
-                        href="klasterlain.html?kategori=Gizi"
+                        href="klaster2.html?kategori=Gizi"
                         class="badge bg-primary decoration-none ms-2"
                         >Lihat Data</a
                     >
@@ -255,7 +261,7 @@
                    
                     <td>
                     <a
-                        href="klasterlain.html?kategori=Kes. Jiwa"
+                        href="klaster2.html?kategori=Kes. Jiwa"
                         class="badge bg-primary decoration-none ms-2"
                         >Lihat Data</a
                     >
@@ -266,7 +272,7 @@
                     <td style="background: #2196f3; color: white">5</td>
                     <td>
                     <a
-                        href="klasterlain.html?kategori=Kes. Tradisional"
+                        href="klaster2.html?kategori=Kes. Tradisional"
                         class="badge bg-primary decoration-none ms-2"
                         >Lihat Data</a
                     >
@@ -278,7 +284,7 @@
                     
                     <td>
                     <a
-                        href="klasterlain.html?kategori=Gigi dan Mulut"
+                        href="klaster2.html?kategori=Gigi dan Mulut"
                         class="badge bg-primary decoration-none ms-2"
                         >Lihat Data</a
                     >
@@ -289,7 +295,7 @@
                     <td style="background: #2196f3; color: white">5</td>
                     <td>
                     <a
-                        href="klasterlain.html?kategori=P2P TBC"
+                        href="klaster2.html?kategori=P2P TBC"
                         class="badge bg-primary decoration-none ms-2"
                         >Lihat Data</a
                     >
@@ -301,7 +307,7 @@
                    
                     <td>
                     <a
-                        href="klasterlain.html?kategori=P2P Hepatitis"
+                        href="klaster2.html?kategori=P2P Hepatitis"
                         class="badge bg-primary decoration-none ms-2"
                         >Lihat Data</a
                     >
@@ -313,7 +319,7 @@
                    
                     <td>
                     <a
-                        href="klasterlain.html?kategori=P2P Imunisasi"
+                        href="klaster2.html?kategori=P2P Imunisasi"
                         class="badge bg-primary decoration-none ms-2"
                         >Lihat Data</a
                     >
@@ -325,7 +331,7 @@
                    
                     <td>
                     <a
-                        href="klasterlain.html?kategori=P2P Diare"
+                        href="klaster2.html?kategori=P2P Diare"
                         class="badge bg-primary decoration-none ms-2"
                         >Lihat Data</a
                     >
@@ -337,7 +343,7 @@
                    
                      <td>
                     <a
-                        href="klasterlain.html?kategori=P2P ISPA"
+                        href="klaster2.html?kategori=P2P ISPA"
                         class="badge bg-primary decoration-none ms-2"
                         >Lihat Data</a
                     >
@@ -349,7 +355,7 @@
                     
                      <td>
                     <a
-                        href="klasterlain.html?kategori=P2P Kusta"
+                        href="klaster2.html?kategori=P2P Kusta"
                         class="badge bg-primary decoration-none ms-2"
                         >Lihat Data</a
                     >
@@ -361,7 +367,7 @@
                    
                      <td>
                     <a
-                        href="klasterlain.html?kategori=P2P HIV/AIDS"
+                        href="klaster2.html?kategori=P2P HIV/AIDS"
                         class="badge bg-primary decoration-none ms-2"
                         >Lihat Data</a
                     >
@@ -372,26 +378,32 @@
                     <td style="background: #2196f3; color: white">4</td>
                     <td>
                         <a
-                            href="klasterlain.html?kategori=KTAR"
+                            href="klaster2.html?kategori=KTAR"
                             class="badge bg-primary decoration-none ms-2"
                             >Lihat Data</a
                         >
                     </td>
                 </tr>
-              <!-- new -->
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary btn-sm"
-          data-bs-dismiss="modal"
-        >
-          Tutup
-        </button>
+        <div class="modal-footer">
+          <button class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Tutup</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+  <footer class=" text-dark text-center py-2 " style="position: fixed; bottom: 0; left: 0; width: 100%; z-index: 1000;">
+   <small>© 2025 Puskesmas Pule - Sistem PKP | Created : Mar-Yo</small>
+ </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      once: true
+    });
+  </script>
+</body>
+</html>
